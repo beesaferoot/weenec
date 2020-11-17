@@ -1,0 +1,63 @@
+import typing 
+import logging
+from chatterbot import ChatBot
+from abc import ABC, abstractmethod
+from tweepy import API
+
+logging.basicConfig(level=logging.INFO)
+
+
+
+class Platform(ABC):
+    '''
+        Base Platform Scope for bot
+    '''
+    def __init__(self, name='', config: typing.Dict[str, object]=None, bot: ChatBot=None):
+        self.name = name
+        self.config = config
+        self.bot = bot
+
+    @abstractmethod
+    def get_intent(self):
+        pass
+
+    @abstractmethod
+    def perform_action(self, message: str):
+        pass 
+
+
+class TwitterBot(Platform):
+    '''
+        twitter platform scope for bot
+    '''
+
+    def __init__(self, api: API=None, **kwargs)
+        super().__init__(name='twitter', kwargs)
+        self.api = API
+        self.since_id = 1
+    
+    def get_intent(self):
+        return get_mentions()
+
+    def perform_action(self, message):
+        send_message(message)
+
+    def get_mentions(self):
+        messages = []
+        for tweet in tweepy.Cursor(api.mentions_timeline, since_id=self.since_id).items():
+            self.since_id = max(tweet.id, self.since_id)
+            if tweet.in_reply_to_status_id is not None:
+                continue
+
+            if len(tweet.text):
+                messages.append((tweet.text.lower(), tweet.id))
+
+        return messages
+
+    def send_message(self, msg):
+        message, tweet_id = msg
+        response = self.bot.get_response(message)
+        api.update_status(status=response,
+            in_reply_to_status_id=tweet_id)
+
+
