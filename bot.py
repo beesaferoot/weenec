@@ -31,8 +31,8 @@ class TwitterBot(Platform):
         twitter platform scope for bot
     '''
 
-    def __init__(self, api: API=None, **kwargs)
-        super().__init__(name='twitter', kwargs)
+    def __init__(self, api: API=None, **kwargs):
+        super().__init__(name='twitter', **kwargs)
         self.api = API
         self.since_id = 1
     
