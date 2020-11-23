@@ -1,12 +1,15 @@
 import tweepy
 import logging
 import os
+import dotenv 
 
 logger = logging.getLogger()
 
 dotenv_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
 if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file
+    dotenv.load_dotenv(dotenv_file)
+else:
+    raise ValueError(f'could not find config file at {os.path.dirname(dotenv_file)}')
 
 def create_api():
     consumer_key = os.getenv("CONSUMER_KEY")

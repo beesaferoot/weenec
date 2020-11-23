@@ -2,7 +2,7 @@ import typing
 import logging
 from chatterbot import ChatBot
 from abc import ABC, abstractmethod
-from tweepy import API
+import tweepy
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,11 +19,11 @@ class Platform(ABC):
 
     @abstractmethod
     def get_intent(self):
-        pass
+        raise NotImplementedError
 
     @abstractmethod
     def perform_action(self, message: str):
-        pass 
+        raise NotImplementedError
 
 
 class TwitterBot(Platform):
@@ -31,33 +31,34 @@ class TwitterBot(Platform):
         twitter platform scope for bot
     '''
 
-    def __init__(self, api: API=None, **kwargs)
-        super().__init__(name='twitter', kwargs)
-        self.api = API
+    def __init__(self, api: tweepy.API=None, **kwargs):
+        super().__init__(name='twitter', **kwargs)
+        self.api = api
         self.since_id = 1
     
     def get_intent(self):
-        return get_mentions()
+        return self.get_mentions()
 
     def perform_action(self, message):
-        send_message(message)
+        self.send_message(message)
 
     def get_mentions(self):
         messages = []
-        for tweet in tweepy.Cursor(api.mentions_timeline, since_id=self.since_id).items():
+        for tweet in tweepy.Cursor(self.api.mentions_timeline, since_id=self.since_id).items(50):
             self.since_id = max(tweet.id, self.since_id)
             if tweet.in_reply_to_status_id is not None:
                 continue
 
             if len(tweet.text):
-                messages.append((tweet.text.lower(), tweet.id))
+                messages.append((tweet.text.lower(), tweet.id, tweet.user.name))
 
         return messages
 
     def send_message(self, msg):
-        message, tweet_id = msg
-        response = self.bot.get_response(message)
-        api.update_status(status=response,
+        message, tweet_id, tweet_user_name = msg
+        response = f"@{tweet_user_name} {self.bot.get_response(message)}"
+        print(response, tweet_id)
+        self.api.update_status(status=response,
             in_reply_to_status_id=tweet_id)
 
 
