@@ -1,9 +1,10 @@
 """
     utils.py contains useful utility functions used in bot modules
 """
-
+import pickle, os
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
+from bot import Platform, TwitterBot
 
 
 def train_bot(bot: ChatBot, *paths_to_corpus: str):
@@ -19,8 +20,17 @@ def train_bot(bot: ChatBot, *paths_to_corpus: str):
     print(f'*** finished training bot ***')
 
 
-def create_or_restore_bot_instance():
+def create_or_restore_platform_instance() -> Platform:
     '''
         create new ChatBot instance if stored instance could not be restored
+        :returns Platform
     '''
-    pass
+    try:
+        if os.path.exists("platform_state.pickle"):
+            with open("platform_state.pickle", "rb") as bot:
+                bot_state = pickle.load(bot)
+            return TwitterBot(**bot_state)
+        else:
+            return TwitterBot()
+    except:
+        return TwitterBot()
