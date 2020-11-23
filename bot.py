@@ -31,10 +31,10 @@ class TwitterBot(Platform):
         twitter platform scope for bot
     '''
 
-    def __init__(self, api: tweepy.API=None, **kwargs):
+    def __init__(self, api: tweepy.API=None, since_id=1, **kwargs):
         super().__init__(name='twitter', **kwargs)
         self.api = api
-        self.since_id = 1
+        self.since_id = since_id
     
     def get_intent(self):
         return self.get_mentions()
@@ -50,8 +50,7 @@ class TwitterBot(Platform):
                 continue
 
             if len(tweet.text):
-                messages.append((tweet.text.lower(), tweet.id, tweet.user.name))
-
+                messages.append((tweet.text.lower(), tweet.id, tweet.user.screen_name))
         return messages
 
     def send_message(self, msg):

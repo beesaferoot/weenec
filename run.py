@@ -1,9 +1,9 @@
 import pika, os, time, logging 
-import json
+import json, pickle
 from chatterbot import ChatBot
-from bot import TwitterBot, Platform
+from bot import Platform
 from config import create_api, create_queue
-from utils import train_bot, create_or_restore_bot_instance
+from utils import train_bot, create_or_restore_platform_instance
 
 logger = logging.getLogger()
 
@@ -24,23 +24,27 @@ def recieve_tweets(platform: Platform):
             print("messages - ", messages)
             for msg in messages:
                 logger.debug(msg, type(msg))
-                # print(msg, type(msg))
                 producer_channel.basic_publish(exchange='', routing_key='twitter_mentions', 
                     body=json.dumps(msg))
-            # time.sleep(7200)
             time.sleep(500)
             consumer_channel.start_consuming()
         except Exception as e:
             logger.debug(e)
-            print(e)        
-            # producer_channel.close()
-            # consumer_channel.close()
-
+                         
+    producer_channel.close()
+    consumer_channel.close()
 
 if __name__ == '__main__':
-    bot = create_or_restore_bot_instance()  
+    bot = ChatBot('weenec')  
     train_bot(bot, 'data/faq_corpus/')
-    platform = TwitterBot(bot=bot, api=create_api())
-    recieve_tweets(platform)
-   
+    platform = create_or_restore_platform_instance()
+    platform.bot = bot
+    platform.api = create_api()
+    try:
+        recieve_tweets(platform)
+    finally:
+        with open("platform_state.pickle", "wb") as state:
+            cur_state = {}
+            cur_state["since_id"] = platform.since_id
+            pickle.dump(cur_state, state)
 
