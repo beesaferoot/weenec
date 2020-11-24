@@ -9,9 +9,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Platform(ABC):
-    '''
+    """
         Base Platform Scope for bot
-    '''
+    """
     def __init__(self, name='', config: typing.Dict[str, object]=None, bot: ChatBot=None):
         self.name = name
         self.config = config
@@ -27,9 +27,9 @@ class Platform(ABC):
 
 
 class TwitterBot(Platform):
-    '''
+    """
         twitter platform scope for bot
-    '''
+    """
 
     def __init__(self, api: tweepy.API=None, since_id=1, **kwargs):
         super().__init__(name='twitter', **kwargs)
@@ -56,7 +56,6 @@ class TwitterBot(Platform):
     def send_message(self, msg):
         message, tweet_id, tweet_user_name = msg
         response = f"@{tweet_user_name} {self.bot.get_response(message)}"
-        print(response, tweet_id)
         self.api.update_status(status=response,
             in_reply_to_status_id=tweet_id)
 
