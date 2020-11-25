@@ -1,0 +1,57 @@
+categories:
+  - Q & A's On Smart Card Reader
+conversations:
+- - Introduction to Smart Card Reader
+  - "For the 2019 General Elections, INEC will use the Smart Card Reader to verify and authenticate every person who turns out to vote. This brochure has important information about the Card Reader and its uses on Election Days. We encourage all to take time to read it carefully – to understand the purpose of the Card Reader and how it will enhance the credibility of elections by deterring electoral malpractices and fraud."
+- - What is the Card Reader?
+  - "The Card Reader is an electronic device used to accredit voters during elections. It can also be used for eTransmission of Results."
+- - Why use the Card Reader?
+  - "The Card Reader is able to
+
+     1. Read only PVCs issued by INEC
+     2. Read the embedded chip in the PVC: thus making it impossible to use PVCs not issued by INEC
+     3. Confirm the identity of the voter by cross-matching his/her fingerprints with that stored in the embedded chip. No other person can be accredited to vote using another voter’s PVC.
+     4. Keep a record of all PVCs read, comprising the details of all voters authenticated and those not authenticated.
+     5. Transmit the information of all PVCs presented, whether verification passed or failed to a central INEC server using the Global System Mobile Communication (GSM) data services. The transmitted information will enable:
+
+    INEC to audit accreditation and results from polling units, including demographic statistical details.
+    Collation Officers to audit polling unit results and determine whether accreditation figures have been altered.
+    Result Transmission"
+- - Is the usage of the Card Reader for elections legal?
+  - "The use of the Card Reader does not violate the Constitution of the Federal Republic of Nigeria, as amended, or the Electoral Act 2010, as amended. The Card Reader is not a voting machine and will not be used for voting. It will be used only for the accreditation of voters. Data and results will be transmitted using it. The introduction of the Card Reader by INEC to accredit voters is one of the innovations introduced to improve the integrity of the electoral process in accordance with international best practices and this has been acknowledged by the Courts."
+- - How does the Card Reader work?
+  - "The Card Reader has the ability to read information of voters form the Permanent Voters Card (PVC). It has Radio frequency identification technology that will enable it to read the Permanent Voter’s Card (PVC) of each voter from the embedded chip in the PVC to verify the ownership of the card before allowing the voter to be accredited. To prevent fraudulent use, the Card Reader is configured to work only on Election Days. In addition, it is configured to specific polling units and cannot be used in any other Polling Unit with that configuration."
+- - How long is the battery life of the Card Reader?
+  - "When fully charged the battery life of the Card Reader is about 12 hours of continual usage. The device hibernates when not in use to save and lengthen battery life."
+- - Who will operate the Card Reader at the Polling Unit or Voting Point?
+  - "One of the INEC Officials assigned to a polling unit will be responsible to operate the Card Reader during the accreditation of voters."
+- - Will the Card Readers be tested before the 2019 General Elections?
+  - "INEC has broadly subjected the Card Readers to simulation quality assurance, integrity, and functionality performance and conformance test, both locally and abroad. In addition, INEC carried out reasonable level of enhancement on the Card Reader. The Commission has also conducted field tests on the Card Readers in at least two states in each of the six geo-political zones ahead of the elections."
+- - What happens if the Smart Card Reader fails to function?
+  - "Based on the tests already conducted, it is highly unlikely that the Card Readers will fail. In the event of such an, INEC will deploy a technical team to resolve the challenge. However, in the event of sustained malfunction of the Smart Card Reader, the Presiding Officer (PO) shall:
+
+      Immediately inform the appropriate INEC officials for a replacement.
+      Suspend accreditation and Voting until a new Card Reader is made available;
+      File a report of the incident; and
+      Inform the voters and polling agents of the situation.
+      NOTE:  Where a replacement Smart Card Reader is not available by 2:00pm the P.O shall:
+
+      inform the relevant officials
+      file a report of the incident; and
+      Inform the voters and polling agents that accreditation and voting for the affected Polling Unit, Voting Point settlement, and Voting Point shall continue the following day.
+      "
+- - What if the Card Reader verifies a voter’s PVC but fails to authenticate his/her biometrics (fingerprint/unique features)?
+  - "In the event that the Smart Card Reader fails to authenticate a person’s biometrics, the voter shall be referred to the appropriate officer who shall request the voter:
+      a. To thumbprint in the appropriate box in the Register of Voters for the PU;
+      b. Provide his/her phone number in the appropriate box on the Register of Voters; and
+      c. Thereafter he/she shall be issued with the Tendered Ballot Paper."
+- - Will it be possible to accredit all voters who turn out within the stipulated hours for the election using the Card Reader?
+  - "Yes, if voters show up within or before the stipulated hours for the election. The accreditation of a voter using the Card Reader is estimated to last 10 to 20 seconds per voter."
+- - How will INEC address the challenge of battery shelf life usually associated with the Smart Card Reader?
+  - "INEC will use Card Readers with 12-hour battery life. In addition, INEC has procured additional back-up batteries and trained election officials on the need to properly charge the Card Readers before deploying to the field on Election Days."
+- - How is the Card Reader programmed?
+  - "To prevent fraudulent use, the Card Reader is configured to work only on Election Days. In addition, the device is configured to specific polling units and cannot be used elsewhere without requiring reconfiguration by authorised INEC personnel."
+- - How has the INEC’s Card Reader addressed the problems experienced in other countries in the sub-region?
+  - "The challenge with a few of the Card Reader devices in Ghana, for instance, during the country’s 2012 general elections was the battery power, apparently because the affected devices were not fully charged. It was in learning from this experience that INEC designed the Card Readers to be used in the 2015 elections with 12-hour battery life in active usage, and also procured more than 35,000 units of back-up batteries. The imperative of adequate charging of the Card Readers is underscored during the trainings of election personnel.
+
+      The supposed technology failures during Kenya’s general elections in 2013 had nothing to do with card readers, as the country used computer poll books for accreditation. The challenge was rather with the electronic system used in transmitting results, and not card readers."
