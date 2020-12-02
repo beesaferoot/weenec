@@ -3,7 +3,7 @@ import logging
 from chatterbot import ChatBot
 from abc import ABC, abstractmethod
 import tweepy
-
+import re
 logging.basicConfig(level=logging.INFO)
 
 
@@ -55,6 +55,7 @@ class TwitterBot(Platform):
 
     def send_message(self, msg):
         message, tweet_id, tweet_user_name = msg
+        message = re.sub(".*@weenec2", '', message)
         response = f"@{tweet_user_name} {self.bot.get_response(message)}"
         self.api.update_status(status=response,
             in_reply_to_status_id=tweet_id)
