@@ -27,10 +27,12 @@ def create_or_restore_platform_instance() -> Platform:
     """
     try:
         if os.path.exists("platform_state.pickle"):
-            with open("platform_state.pickle", "rb") as bot:
-                bot_state = pickle.load(bot)
+            with open("platform_state.pickle", "rb") as state:
+                bot_state = pickle.load(state)
             return TwitterBot(**bot_state)
         else:
             return TwitterBot()
     except:
         return TwitterBot()
+
+
