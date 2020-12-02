@@ -34,8 +34,8 @@ def create_queue(name):
     import pika
     logging.basicConfig()
 
-    # Parse RABBITMQ_URL (fallback to localhost)
-    url = os.environ.get('RABBITMQ_URL')
+    # Parse CLOUDAMQP_URL (fallback to localhost)
+    url = os.environ.get('CLOUDAMQP_URL')
     params = pika.URLParameters(url)
     params.socket_timeout = 5
 
