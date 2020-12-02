@@ -32,7 +32,7 @@ def recieve_tweets(platform: Platform):
 
             # Cancel the consumer and return any pending messages
             requeued_messages = consumer_channel.cancel()
-            print('Requeued %i messages' % requeued_messages)
+            logger.info(f"Requeued {requeued_messages} messages")
         except Exception as e:
             logger.error(e)
 
