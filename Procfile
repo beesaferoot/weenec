@@ -1,1 +1,1 @@
-web: python -m spacy link en_core_web_sm en && python run.py --log-file -
+worker: python -m spacy link en_core_web_sm en && python run.py --log-file -
