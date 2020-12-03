@@ -36,3 +36,7 @@ def create_or_restore_platform_instance() -> Platform:
         return TwitterBot()
 
 
+def update_platform_state(**kwargs):
+    with open("platform_state.pickle", "wb") as state:
+        pickle.dump(kwargs, state)
+

@@ -1,9 +1,10 @@
 import logging
-import json, pickle
+import json
+import threading
 from chatterbot import ChatBot
-from bot import Platform
+from bot import Platform, TwitterBot
 from config import create_api, create_queue
-from utils import create_or_restore_platform_instance
+from utils import create_or_restore_platform_instance, update_platform_state
 
 logger = logging.getLogger()
 
@@ -16,8 +17,8 @@ def recieve_tweets(platform: Platform):
     while True:
         try:
             messages = platform.get_intent()
+            logger.info(f' MESSAGES - {messages}')
             for msg in messages:
-                logger.info(f' MESSAGE - {msg}')
                 producer_channel.basic_publish(exchange='', routing_key='twitter_mentions',
                                                body=json.dumps(msg))
             # consume messages
@@ -29,7 +30,10 @@ def recieve_tweets(platform: Platform):
                 # Acknowledge the message
                 consumer_channel.basic_ack(method_frame.delivery_tag)
                 platform.perform_action(msg)
-
+                if isinstance(platform, TwitterBot):
+                    cur_state = {"since_id": platform.since_id}  # since_id attribute from twitter subclass
+                    task = threading.Thread(target=update_platform_state, kwargs=cur_state)
+                    task.start()
             # Cancel the consumer and return any pending messages
             requeued_messages = consumer_channel.cancel()
             logger.info(f"Requeued {requeued_messages} messages")
@@ -50,10 +54,5 @@ if __name__ == '__main__':
     platform = create_or_restore_platform_instance()
     platform.bot = bot
     platform.api = create_api()
-    try:
-        recieve_tweets(platform)
-    finally:
-        with open("platform_state.pickle", "wb") as state:
-            cur_state = {}
-            cur_state["since_id"] = platform.since_id
-            pickle.dump(cur_state, state)
+    recieve_tweets(platform)
+
