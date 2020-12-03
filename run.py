@@ -9,7 +9,7 @@ from utils import create_or_restore_platform_instance, update_platform_state
 logger = logging.getLogger()
 
 
-def recieve_tweets(platform: Platform):
+def receive_tweets(platform: Platform):
     producer_channel = create_queue('twitter_mentions')
     consumer_channel = create_queue('twitter_mentions')
 
@@ -54,5 +54,5 @@ if __name__ == '__main__':
     platform = create_or_restore_platform_instance()
     platform.bot = bot
     platform.api = create_api()
-    recieve_tweets(platform)
+    receive_tweets(platform)
 
