@@ -1,2 +1,1 @@
-release: python -m spacy link en_core_web_sm en
-web: python run.py --log-file -
+web: python -m spacy link en_core_web_sm en && python run.py --log-file -
