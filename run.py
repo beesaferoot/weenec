@@ -6,6 +6,9 @@ from config import create_api, create_queue
 from utils import create_or_restore_platform_instance
 
 logger = logging.getLogger()
+# unsure spacy downloads required files before running main program
+import en_core_web_sm
+_ = en_core_web_sm.load()
 
 
 def recieve_tweets(platform: Platform):
