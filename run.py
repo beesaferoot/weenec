@@ -2,17 +2,16 @@ import logging
 import json
 import threading
 from chatterbot import ChatBot
-from bot import Platform, TwitterBot
+from bot import TwitterBot
 from config import create_api, create_queue
 from utils import create_or_restore_platform_instance, update_platform_state
 
 logger = logging.getLogger()
 
 
-def receive_tweets(platform: Platform):
+def receive_tweets(platform: TwitterBot):
     producer_channel = create_queue('twitter_mentions')
     consumer_channel = create_queue('twitter_mentions')
-
 
     while True:
         try:
@@ -30,16 +29,14 @@ def receive_tweets(platform: Platform):
                 # Acknowledge the message
                 consumer_channel.basic_ack(method_frame.delivery_tag)
                 platform.perform_action(msg)
-                if isinstance(platform, TwitterBot):
-                    cur_state = {"since_id": platform.since_id}  # since_id attribute from twitter subclass
-                    task = threading.Thread(target=update_platform_state, kwargs=cur_state)
-                    task.start()
+
             # Cancel the consumer and return any pending messages
             requeued_messages = consumer_channel.cancel()
             logger.info(f"Requeued {requeued_messages} messages")
         except Exception as e:
             logger.error(e)
-
+        finally:
+            update_platform_state(since_id=platform.since_id)
 
 
 if __name__ == '__main__':

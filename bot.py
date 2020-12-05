@@ -45,20 +45,19 @@ class TwitterBot(Platform):
     def get_mentions(self):
         messages = []
         for tweet in tweepy.Cursor(self.api.mentions_timeline, since_id=self.since_id).items(50):
-            self.since_id = max(tweet.id, self.since_id)
             if tweet.in_reply_to_status_id is not None:
                 continue
-
             if len(tweet.text):
                 messages.append((tweet.text.lower(), tweet.id, tweet.user.screen_name))
         return messages
 
     def send_message(self, msg):
         message, tweet_id, tweet_user_name = msg
-        message = re.sub(".*@weenec2", '', message).strip(" ")
+        message = re.sub(".*@weenlight", '', message).strip(" ")
         if len(message):
             response = f"@{tweet_user_name} {self.bot.get_response(message)}"
             self.api.update_status(status=response,
                 in_reply_to_status_id=tweet_id)
+        self.since_id = max(tweet_id, self.since_id)
 
 
