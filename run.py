@@ -54,5 +54,6 @@ if __name__ == '__main__':
     platform = create_or_restore_platform_instance()
     platform.bot = bot
     platform.api = create_api()
-    receive_tweets(platform)
+    if isinstance(platform, TwitterBot):
+        receive_tweets(platform)
 
