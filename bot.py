@@ -58,7 +58,7 @@ class TwitterBot(Platform):
 
         if len(message):
             response = str(self.bot.get_response(message))
-            response = f"{response.split('.')[0]:.187}..."
+            response = f"{response.split('.')[0]:.187}."
             response = f"@{tweet_user_name} {response}"
             self.api.update_status(status=response,
                                    in_reply_to_status_id=tweet_id)
