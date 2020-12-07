@@ -45,8 +45,11 @@ if __name__ == '__main__':
                       'import_path': 'chatterbot.logic.BestMatch',
                       'default_response': "sorry, but i can't seem to find the answer to your question at the moment."
                                           "for more info visit https://www.inecnigeria.org/voter-education/faqs/.",
-                      'maximum_similarity_threshold': 0.90
-                  }], read_only=True)
+                      'threshold': 0.90
+                  }], read_only=True,
+                  preprocessors=['chatterbot.preprocessors.clean_whitespace'],
+                  silence_performance_warning=True
+                  )
 
     platform = create_or_restore_platform_instance()
     platform.bot = bot

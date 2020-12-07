@@ -1,18 +1,19 @@
-import typing 
+import typing
 import logging
 from chatterbot import ChatBot
 from abc import ABC, abstractmethod
 import tweepy
 import re
-logging.basicConfig(level=logging.INFO)
 
+logging.basicConfig(level=logging.INFO)
 
 
 class Platform(ABC):
     """
         Base Platform Scope for bot
     """
-    def __init__(self, name='', config: typing.Dict[str, object]=None, bot: ChatBot=None):
+
+    def __init__(self, name='', config: typing.Dict[str, object] = None, bot: ChatBot = None):
         self.name = name
         self.config = config
         self.bot = bot
@@ -31,11 +32,11 @@ class TwitterBot(Platform):
         twitter platform scope for bot
     """
 
-    def __init__(self, api: tweepy.API=None, since_id=1, **kwargs):
+    def __init__(self, api: tweepy.API = None, since_id=1, **kwargs):
         super().__init__(name='twitter', **kwargs)
         self.api = api
         self.since_id = since_id
-    
+
     def get_intent(self):
         return self.get_mentions()
 
@@ -53,11 +54,12 @@ class TwitterBot(Platform):
 
     def send_message(self, msg):
         message, tweet_id, tweet_user_name = msg
-        message = re.sub(".*@weenlight", '', message).strip(" ")
+        message = re.sub(".*@weenlight", '', message)
+
         if len(message):
-            response = f"@{tweet_user_name} {self.bot.get_response(message)}"
+            response = f"{str(self.bot.get_response(message)):.200}"
+            response = response.split(".")[0]
+            response = f"@{tweet_user_name} {response}"
             self.api.update_status(status=response,
-                in_reply_to_status_id=tweet_id)
+                                   in_reply_to_status_id=tweet_id)
         self.since_id = max(tweet_id, self.since_id)
-
-

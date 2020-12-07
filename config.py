@@ -36,7 +36,7 @@ def create_queue(name):
 
     # Parse CLOUDAMQP_URL (fallback to localhost)
     url = os.environ.get('CLOUDAMQP_URL')
-    params = pika.URLParameters(url)
+    params = pika.URLParameters(f"{url}/?connection_attempts=3&heartbeat=0&retry_delay=60")
     params.socket_timeout = 5
 
     connection = pika.BlockingConnection(params) # Connect to CloudAMQP
